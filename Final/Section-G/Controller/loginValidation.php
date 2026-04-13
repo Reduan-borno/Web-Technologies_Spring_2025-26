@@ -28,14 +28,20 @@ if(!$password){
 }
 
 if($hasUsernameError || $hasPasswordError){
+    $_SESSION["username"] = $username;
     Header("Location: ../View/login.php");
 }else{
-    $mockUsername = "admin";
-    $mockPassword = "password";
-
-    if($username === $mockUsername && $password === $mockPassword){
-        Header("Location: ../View/dashboard.php");
-    }else{
+    $users = array("rahim"=>"123456", "karim"=>"67890");
+    $isFound = false;
+    foreach($users as $user=>$pass){
+    if($username === $user && $password === $pass){
+            $isFound = true;
+            $_SESSION["username"] = $username;
+            $_SESSION["isLoggedIn"] = true;
+            Header("Location: ../View/dashboard.php");
+        }
+    }
+    if(!$isFound){
         $_SESSION["credentialError"] = "Your username or password is incorrect!";
         Header("Location: ../View/login.php");
     }

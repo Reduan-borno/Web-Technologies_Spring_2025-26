@@ -25,9 +25,25 @@ if(!$password){
 }
 
 if($hasUsernameError || $hasPasswordError){
+    $_SESSION["username"] = $username;
+    $_SESSION["password"] = $password;
     Header("Location: ../View/login.php");
 }else{
-    echo "<h2>Congratulation, found no validation error. You are move to next step for credential check.</h2>";
+    // Now doing using dummy array. Later, it will be converted by database. 
+
+    $users = array("rahim"=>"1234567", "karim"=>"998877");
+    foreach($users as $user => $pass){
+        if($username == $user && $password == $pass){
+            $_SESSION["username"] = $username;
+            $_SESSION["isLoggedIn"] = true;
+            Header("Location: ../View/dashboard.php");
+            exit();
+        }else{
+            $_SESSION["loginErr"] = "Username or password doesn't match. Please try again.";
+            Header("Location: ../View/login.php");
+            exit();
+        }
+    }
 }
 
 ?>
