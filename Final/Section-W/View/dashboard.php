@@ -8,6 +8,9 @@ if(!$isLoggedIn){
     exit();
 }
 
+$hasCookie = isset($_COOKIE["food"]);
+
+$favFood = $_COOKIE["food"] ??"";
 ?>
 
 
@@ -15,5 +18,28 @@ if(!$isLoggedIn){
     <body>
          <?php echo "Hello Mr. $username , welcome to dashboard.";?>
          <a href="../Controller/logout.php" >Logout</a>
+
+         <!-- For taking input as a new customer -->
+        <?php 
+        if(!$hasCookie){
+           echo '<form action="../Controller/setFavoriteFood.php" method="post" style="margin-top:5%;">
+                    <label>Enter favorite food: </label>
+                    <input type="text" name="favoriteFood" placeholder="Enter Favorite food"/>
+                    <input type="submit" name="submit"/>
+                </form>';
+        }else{
+    echo "<div>
+            <p>We know your favorite food, <strong>$favFood</strong>. Want to order again?</p>
+            <p>Click <a href='../Controller/deleteCookieHandler.php'>Here </a> to delete cookie </p>
+          </div>";
+        }
+        
+        ?>
+
+               
+      
+
+         <!-- For known customer -->
+         
     </body>
 </html>
