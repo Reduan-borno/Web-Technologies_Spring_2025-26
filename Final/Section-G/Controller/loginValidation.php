@@ -1,4 +1,6 @@
 <?php 
+include "../Model/DatabaseConnection.php";
+
 session_start();
 
 $username = $_POST["username"];
@@ -31,19 +33,40 @@ if($hasUsernameError || $hasPasswordError){
     $_SESSION["username"] = $username;
     Header("Location: ../View/login.php");
 }else{
-    $users = array("rahim"=>"123456", "karim"=>"67890");
-    $isFound = false;
-    foreach($users as $user=>$pass){
-    if($username === $user && $password === $pass){
-            $isFound = true;
-            $_SESSION["username"] = $username;
-            $_SESSION["isLoggedIn"] = true;
-            Header("Location: ../View/dashboard.php");
+    // $users = array("rahim"=>"123456", "karim"=>"67890");
+    // $isFound = false;
+    // foreach($users as $user=>$pass){
+    // if($username === $user && $password === $pass){
+            // $isFound = true;
+            // $_SESSION["username"] = $username;
+            // $_SESSION["isLoggedIn"] = true;
+            // Header("Location: ../View/dashboard.php");
+    //     }
+    // }
+    // if(!$isFound){
+        // $_SESSION["credentialError"] = "Your username or password is incorrect!";
+        // Header("Location: ../View/login.php");
+    // }
+
+    // DB Work here
+$db = new DatabaseConnection();
+$connection = $db->openConnection();
+$response = $db->signIn($connection, "users", $username, $password);
+
+if($response->num_rows > 0){
+    while($row = $response->fetch_assoc())
+        {
+        echo "Username: " . $row["username"]. " - image_path: " . $row["image_path"]."<br>";
+        $_SESSION["image_path"] = $row["image_path"];
         }
-    }
-    if(!$isFound){
-        $_SESSION["credentialError"] = "Your username or password is incorrect!";
+
+    $isFound = true;
+    $_SESSION["username"] = $username;
+    $_SESSION["isLoggedIn"] = true;
+    Header("Location: ../View/dashboard.php");
+}else{
+            $_SESSION["credentialError"] = "Your username or password is incorrect!";
         Header("Location: ../View/login.php");
-    }
+}
 }
 ?>

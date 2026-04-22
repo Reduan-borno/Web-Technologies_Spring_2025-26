@@ -7,6 +7,8 @@ if(!$isLoggedIn){
     exit();
 }
 
+$image_path = $_SESSION["image_path"] ??"";
+
 $isCookieSet = isset($_COOKIE["favoriteFood"]);
 $favFood = '';
 if($isCookieSet){
@@ -18,6 +20,7 @@ if($isCookieSet){
 <html>
     <body>
         <h1>Greetings! Welcome to Dashboard <strong><?php echo $username;?></strong></h1>
+        <img src="<?php echo $image_path;?>" height="200px" width="200px"/>
         <a href="../Controller/logout.php">Logout</a>
 
 
