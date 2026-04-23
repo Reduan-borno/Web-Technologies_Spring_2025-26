@@ -3,6 +3,8 @@ session_start();
 $username = $_SESSION["loggedInUser"] ?? "";
 $isLoggedIn = $_SESSION["isLoggedIn"];
 
+$image_path = $_SESSION["image_path"] ??"";
+
 if(!$isLoggedIn){
     Header("Location: login.php");
     exit();
@@ -11,6 +13,7 @@ if(!$isLoggedIn){
 $hasCookie = isset($_COOKIE["food"]);
 
 $favFood = $_COOKIE["food"] ??"";
+
 ?>
 
 
@@ -18,6 +21,7 @@ $favFood = $_COOKIE["food"] ??"";
     <body>
          <?php echo "Hello Mr. $username , welcome to dashboard.";?>
          <a href="../Controller/logout.php" >Logout</a>
+         <img src="<?php echo $image_path;?>" height="200px" width="200px"/>
 
          <!-- For taking input as a new customer -->
         <?php 

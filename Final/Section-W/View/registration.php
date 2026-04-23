@@ -23,7 +23,7 @@ unset($_SESSION["loggingError"]);
 <html>
     <body>
 
-<form method="post" action="../Controller/loginValidation.php">
+<form method="post" action="../Controller/registrationValidation.php" enctype="multipart/form-data">
     <table>
 <tr>
     <td>Username</td>
@@ -35,6 +35,10 @@ unset($_SESSION["loggingError"]);
     <td>Password</td>
     <td><input type="password" name="password"/></td>
     <td style="color:red"><?php echo "$passwordError";?> </td>
+</tr>
+<tr>
+    <td> Upload File
+    <td><input type="file" name="fileupload"/></td>
 </tr>
 <tr>
     <td></td>
