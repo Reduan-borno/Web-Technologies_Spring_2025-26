@@ -27,6 +27,12 @@ class DatabaseConnection{
     return $result;
     }
 
+    function getUserById($connection, $tableName, $id){
+    $sql = "SELECT * FROM $tableName WHERE id='".$id."'";
+    $result = $connection->query($sql);
+    return $result;
+    }
+
 }
 
 
