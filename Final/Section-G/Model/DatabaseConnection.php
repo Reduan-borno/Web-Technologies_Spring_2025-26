@@ -4,7 +4,7 @@ class DatabaseConnection{
     function openConnection(){
         $db_host="localhost";
         $db_user = "root";
-        $db_password = "";
+        $db_password = "123456"; // "" for all of you
         $db_name = "section_g";
 
         $connection  = new mysqli($db_host, $db_user, $db_password, $db_name);
@@ -35,6 +35,13 @@ class DatabaseConnection{
         $result = $connection->query($sql);
         return $result;
     }
+
+    function getExistingUserByUsername($connection, $tableName, $username){
+        $sql = "SELECT * FROM ".$tableName." WHERE username='".$username."'";
+        $result = $connection->query($sql);
+        return $result;
+    }
+
 
 }
 

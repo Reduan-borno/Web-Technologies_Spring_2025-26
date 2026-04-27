@@ -1,8 +1,8 @@
 <?php 
 session_start();
 
-$usernameError = $_SESSION["usernameError"];
-$passwordError = $_SESSION["passwordError"];
+$usernameError = $_SESSION["usernameError"] ?? "";
+$passwordError = $_SESSION["passwordError"] ?? "";
 $loginError = $_SESSION["credentialError"] ?? "";
 
 $username = $_SESSION["username"] ?? "";
@@ -38,6 +38,11 @@ unset($_SESSION["credentialError"]);
     <tr>
         <td></td>
         <td><p style="color:red"><?php echo $loginError;?></p></td>
+    </tr>
+     <tr>
+        <td></td>
+        <td>Dont have an account? <a href='registration.php'>Click Here</a> To registration</td>
+     
     </tr>
      <tr>
         <td></td>

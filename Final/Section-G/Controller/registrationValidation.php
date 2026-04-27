@@ -43,15 +43,13 @@ if($hasUsernameError || $hasPasswordError){
 
     $response = move_uploaded_file($uploadFile["tmp_name"], $path);
     echo "<br/>Uploaded response: ".$response;
-
-    if($response){
-
-    }
 }
 // DB Work here
 $db = new DatabaseConnection();
 $connection = $db->openConnection();
 $response = $db->signUp($connection, "users", $username, $password, $path);
-    
+    if($response){
+        Header("Location: ../View/login.php");
+    }
 }
 ?>
