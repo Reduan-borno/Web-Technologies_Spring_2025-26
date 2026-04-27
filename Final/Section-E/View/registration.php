@@ -29,7 +29,7 @@ unset($_SESSION["loginErr"]);
 <body>
     <h2>Login</h2>
 
-    <form method="post" action="../Controller/loginValidation.php">
+    <form method="post" action="../Controller/RegistrationValidation.php" enctype="multipart/form-data">
 
     <table>
         <tr>
@@ -43,16 +43,18 @@ unset($_SESSION["loginErr"]);
             <td><input type="password" name="password" placeholder="Enter password" value="<?php echo $password; ?>"/> </td>
             <td><p style='color:red;'><?php echo "$passwordError";?></p></td>
         </tr>
+        <tr>
+            <td>Upload File</td>
+            <td><input type="file" name="fileupload"/></td>
+        </tr>
         <tr>    
             <td></td>
             <td><p style='color:red;'><?php echo "$loginErr";?></p></td>
         </tr>
-
-        <tr>    
+         <tr>    
             <td></td>
-            <td>Dont have an account? <a href='registration.php'>Sign Up </a> Here</td>
+            <td>Already have an account? <a href='login.php'>Login </a> Here</td>
         </tr>
-        
          <tr>
             <td></td>
             <td><input type="submit" name="submit" /> </td>

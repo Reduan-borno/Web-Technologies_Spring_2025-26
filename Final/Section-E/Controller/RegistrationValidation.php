@@ -4,6 +4,9 @@ session_start();
 
 $username = $_POST["username"] ?? "";
 $password = $_POST["password"] ?? "";
+$file = $_FILES["fileupload"] ?? null;
+
+
 $hasUsernameError = true;
 $hasPasswordError = true;
 echo "<h1>Hello Mr, $username</h1>";
@@ -30,24 +33,20 @@ if($hasUsernameError || $hasPasswordError){
     $_SESSION["password"] = $password;
     Header("Location: ../View/login.php");
 }else{
-    // Now doing using dummy array. Later, it will be converted by database. 
 
+    $path = "";
+    if($file){
+    $uploadDirectory = "../uploads/";
+    $path = $uploadDirectory.basename($file["name"]);
+    echo "Printing file path..".$path;
+    $res = move_uploaded_file($file["tmp_name"], $path);
+}
     $db = new DatabaseConnection();
     $connection = $db->openConnection();
-    $result = $db->Login($connection, "users", $username, $password);
-    if($result->num_rows == 1){
-        while($row = $result->fetch_assoc()){
-            $_SESSION["user_id"] = $row["id"];
-            $_SESSION["username"] = $row["username"];
-            $_SESSION["image_path"] = $row["image_path"];
-            $_SESSION["isLoggedIn"] = true;
-            Header("Location: ../View/dashboard.php");
-        }
-    }else{
-        $_SESSION["loginErr"] = "Username or password doesn't match. Please try again.";
+    $result = $db->CreateUser($connection, "users", $username, $password, $path);
+    if($result){
         Header("Location: ../View/login.php");
     }
-
 
 }
 
