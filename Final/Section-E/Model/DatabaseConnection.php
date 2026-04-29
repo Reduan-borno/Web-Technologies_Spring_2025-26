@@ -28,6 +28,12 @@ class DatabaseConnection{
         return $result;
     }
 
+    function checkExistingUserByUsername($connection, $tableName, $username){
+        $sql = "SELECT * FROM $tableName WHERE username = '".$username."'";
+        $result = $connection->query($sql);
+        return $result;
+    }
+
     function getAllUsers($connection, $tableName){
         $sql = "SELECT * FROM $tableName";
         $result = $connection->query($sql);

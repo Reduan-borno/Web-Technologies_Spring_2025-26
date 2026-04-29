@@ -28,14 +28,20 @@ unset($_SESSION["loginErr"]);
 </head>
 <body>
     <h2>Login</h2>
+    <head>
+        <script src="../Controller/JS/checkUsername.js"></script>
+    </head>
 
     <form method="post" action="../Controller/RegistrationValidation.php" enctype="multipart/form-data">
 
     <table>
         <tr>
             <td>Username</td>
-            <td><input type="text" name="username" placeholder="Enter username" value="<?php echo $username; ?>"/> </td>
-            <td><?php echo "$usernameError";?></td>
+            <td><input type="text" name="username" id="username" placeholder="Enter username" value="<?php echo $username; ?>" onkeyup="checkUsername()"/> </td>
+            <td><?php echo "$usernameError";?>
+                <p id="usernameResponse"></p>
+        </td>
+
         </tr>
 
          <tr>
