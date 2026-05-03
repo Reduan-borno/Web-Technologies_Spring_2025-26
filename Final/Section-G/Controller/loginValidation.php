@@ -1,5 +1,7 @@
 <?php 
-include "../Model/DatabaseConnection.php";
+// include "../Model/DatabaseConnection.php";
+include "../Model/ManageDatabaseConnection.php";
+include "../Model/UsersModel.php";
 
 session_start();
 
@@ -49,10 +51,12 @@ if($hasUsernameError || $hasPasswordError){
     // }
 
     // DB Work here
-$db = new DatabaseConnection();
-$connection = $db->openConnection();
-$response = $db->signIn($connection, "users", $username, $password);
+$db = new ManageDatabaseConnection();
+$users = new UsersModel();
 
+$connection = $db->openConnection();
+$response = $users->signIn($connection, "users", $username, $password);
+$db->closeConnection($connection);
 if($response->num_rows > 0){
     while($row = $response->fetch_assoc())
         {

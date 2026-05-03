@@ -27,7 +27,7 @@ if(!$password){
 
 if($hasUsernameError || $hasPasswordError){
     $_SESSION["username"] = $username;
-    $_SESSION["password"] = $password;
+    // $_SESSION["password"] = $password;
     Header("Location: ../View/login.php");
 }else{
     // Now doing using dummy array. Later, it will be converted by database. 
