@@ -4,8 +4,8 @@ class DatabaseConnection{
     function openConnection(){
         $db_host = "localhost"; //127.0.0.1
         $db_user = "root";
-        $db_password = "";
-        $db_name = "section_w";
+        $db_password = "123456";
+        $db_name = "section_e";
 
         $connection = new mysqli($db_host,$db_user, $db_password, $db_name);
         if($connection->connect_error){
@@ -32,6 +32,14 @@ class DatabaseConnection{
     $result = $connection->query($sql);
     return $result;
     }
+
+     function checkUser($connection, $tableName, $username){
+        $sql = "SELECT * FROM $tableName WHERE username LIKE '%".$username."%'";
+    $result = $connection->query($sql);
+    return $result;
+    }
+
+    
 
 }
 

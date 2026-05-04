@@ -8,7 +8,7 @@ function checkUsername() {
       document.getElementById("usernameResponse").innerHTML = this.status;
     }
   };
-  xhttp.open("POST", "../Controller/HandleAjax.php", true);
+  xhttp.open("POST", "../Controller/checkUsername.php", true);
   xhttp.setRequestHeader("content-type", "application/x-www-form-urlencoded");
   xhttp.send("username=" + username);
 }
