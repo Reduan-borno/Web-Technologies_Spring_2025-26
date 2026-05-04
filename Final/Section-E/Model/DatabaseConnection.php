@@ -39,6 +39,16 @@ class DatabaseConnection{
         $result = $connection->query($sql);
         return $result;
     }
+
+    // Prevent SQL Injection by using prepared statements
+    function LoginWithPrepareStmt($connection, $tableName, $username, $password){
+        $sql = "SELECT * FROM $tableName WHERE username = ? AND password = ?";
+        $statement = $connection->prepare($sql);
+        $statement->bind_param("ss",$username, $password);
+        $statement->execute();
+        $result = $statement->get_result();
+        return $result;
+    }
 }
 
 ?>

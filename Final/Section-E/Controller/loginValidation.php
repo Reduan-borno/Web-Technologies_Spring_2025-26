@@ -34,7 +34,7 @@ if($hasUsernameError || $hasPasswordError){
 
     $db = new DatabaseConnection();
     $connection = $db->openConnection();
-    $result = $db->Login($connection, "users", $username, $password);
+    $result = $db->LoginWithPrepareStmt($connection, "users", $username, $password);
     if($result->num_rows == 1){
         while($row = $result->fetch_assoc()){
             $_SESSION["user_id"] = $row["id"];
