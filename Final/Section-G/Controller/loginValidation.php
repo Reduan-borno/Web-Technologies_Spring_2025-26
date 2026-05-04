@@ -55,7 +55,7 @@ $db = new ManageDatabaseConnection();
 $users = new UsersModel();
 
 $connection = $db->openConnection();
-$response = $users->signIn($connection, "users", $username, $password);
+$response = $users->signInWithSqlInjection($connection, "users", $username, $password);
 $db->closeConnection($connection);
 if($response->num_rows > 0){
     while($row = $response->fetch_assoc())
@@ -71,6 +71,7 @@ if($response->num_rows > 0){
 }else{
             $_SESSION["credentialError"] = "Your username or password is incorrect!";
         Header("Location: ../View/login.php");
+        
 }
 }
 ?>

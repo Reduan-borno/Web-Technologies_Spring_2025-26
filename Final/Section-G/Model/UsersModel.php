@@ -16,6 +16,16 @@ class UsersModel{
     }
 
 
+       function signInWithSqlInjection($connection, $tableName, $username, $password){
+        $sql = "SELECT * FROM ".$tableName." WHERE username= ? AND password= ?";
+        $statement = $connection->prepare($sql);
+        $statement->bind_param("ss",$username, $password);
+        $statement->execute();
+        $result = $statement->get_result();
+        return $result;
+    }
+
+
     function allUsers($connection, $tableName){
         $sql = "SELECT * FROM ".$tableName;
 
